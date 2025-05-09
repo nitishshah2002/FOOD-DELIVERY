@@ -19,6 +19,15 @@ const userSchema = new mongoose.Schema({
         type:Object,
        default:{}
       },
+      phoneNumber:{
+         type:Number,
+         required:[true,"Phone number is required"],
+         minlength:[10,"minimum lenght should be 10"]
+      },
+      tokenVersion:{
+        type:Number,
+        default:0
+      },
       role:{
         type:String,
         enum:["user","admin"],
