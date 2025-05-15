@@ -15,7 +15,7 @@ const authenticate =asyncHandler (async (req,res,next)=>{
     if(!user) throw new ErrorHandler("Invalid session ,Please login again!!!",404);
 
 
-    if(user.tokenVersion !== decodedToken.tokenVersion) {
+    if(user.tokenVersion !== decodedToken.token) {
         throw new ErrorHandler ("Invalid session ,please login again",404)
     }
 

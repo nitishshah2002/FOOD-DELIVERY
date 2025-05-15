@@ -5,12 +5,12 @@ const { generateToken } = require("../utils/jwt.utils.js");
 
 
 const registerUser = (async (req,res)=>{
-    const {name,email,password,phoneNumber} = req.body;
+    const {name,email,password} = req.body;
 
     let exittingUser = await userCollection.findOne({email});
     if(exittingUser) throw new ErrorHandler("User already exists with this email",400);
 
-    let newUser = await userCollection.create({name,email,password,phoneNumber});
+    let newUser = await userCollection.create({name,email,password});
     res.status(201).json({
         success:true,
         message:"user registerd Sucesssfully",
@@ -64,58 +64,21 @@ const logoutUser = asyncHandler(async (req,res)=>{
 })
 
 const updateUserProfile = asyncHandler(async (req,res)=>{
-    const {_id}=req.myUser;
-    const {name,email,phoneNumber} = req.body;
 
-    let updatedUser = await userCollection.findByIdAndUpdate({_id},
-        {$set :{name,email,phoneNumber}},
-        {new:true}
-    );
-    res.status(200).json({
-        success:true,
-        message:"User Updated successfully",
-        data:updatedUser
-    })
 })
 
 const deleteUserProfile = asyncHandler (async (req,res)=>{
-    const { _id} = req.myUser; // this will  get from authenticate  middleware
-    let deleteUser = await userCollection.findByIdAndDelete({_id});// findOne and delteOne
-    if(!deleteUser) throw new ErrorHandler("User Not Found",404);
-   //! if not found , throw error
-    res.status(200).json({
-        success:true,
-        message:"User deleted SuccessFully",
-        data:deleteUser,
-    })
-});// delete teh profile 
-
-const updateUserPassword = asyncHandler(async (req,res)=>{
-    let {newPassword}=req.body;
-    let user = await userCollection.findById(req.myUser._id);
-    user.password=newPassword;
-    await user.save()
-    res.status(200).json({
-        success:true,
-        message:"Password updated successfully",
-    })
+    const { _id} = req.myUser;
 })
 
-const getLoggedInUserProfile = asyncHandler (async (req,res)=>{
-    res.status(200).json({
-        success:true,
-        userDetails:req.myUser,
-    })
-})
+const updateUserPassword = asyncHandler(async (req,res)=>{})
+
+const getLoggedInUserProfile = asyncHandler (async (req,res)=>{})
 
 
 module.exports = {
     registerUser,
     loginUser,
-    logoutUser,
-    deleteUserProfile,
-    getLoggedInUserProfile,
-    updateUserPassword,
-    updateUserProfile
+    logoutUser
 }
 

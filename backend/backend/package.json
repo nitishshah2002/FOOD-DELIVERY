@@ -4,8 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+   
     "start": "nodemon server.js",
-    "nitish": "nodemon server.js"
+    "nitish":"nodemon server.js"
   },
   "keywords": [],
   "author": "",
