@@ -33,13 +33,20 @@ const userSchema = new mongoose.Schema({
         enum:["user","admin"],
         default:"user"
       },
+      address: {
+    type: String,
+    required: true
+  },
 },
 
-  { timestamps:true});
+  { timestamps:true,
+    minimize:false
+  });
 
 
   //!password hashing
   userSchema.pre("save",async function (){
+    if(!this.isModified("password")) return;
     let salt = await bcryptjs.genSalt(12); //random string
     let hashedPassword = await bcryptjs.hash(this.password, salt); //hashing the password
     this.password = hashedPassword;

@@ -12,5 +12,10 @@ let uploadImageOnCloudinary = (async(path)=>{
    return result
 })
 
+const  deleteImageFromCloudinary =asyncHandler(async (id)=>{
+   let result = await cloud.uploader.destroy(id);
+   return result;
+})
 
-module.exports = {uploadImageOnCloudinary}
+
+module.exports = {uploadImageOnCloudinary,deleteImageFromCloudinary}
