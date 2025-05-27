@@ -144,6 +144,6 @@ module.exports = {
   placeOrder,
   verifyOrder,
   getOrder,
-  getAllOrde
+  getAllOrder
 
 };
